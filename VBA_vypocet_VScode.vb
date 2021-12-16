@@ -1,3 +1,6 @@
+'**************************************************************************************************************************************************
+'V Excelu vloženo na "list2" pojmenovaného "zadani"
+
 Private Sub Worksheet_Change(ByVal Target As Range)
     Dim KeyCells As Range
 
@@ -57,7 +60,6 @@ Sub vypocet()
     Call vypocetKompletniSestavy
     
 End Sub
-
 Sub vypocetDveri()
     'volby výpočtu podle kategorie dveří (Aktiv-Příčkové-Excellent)
     If Worksheets("zadani").Range("kategorie").Value = "AKTIV 77" Then
@@ -73,51 +75,8 @@ Sub vypocetDveri()
     End If
 End Sub
 
-Option Explicit
-
-
-    Public kategorie As String
-    Public aktiv As String
-    Public prickove As String
-    Public excellent As String
-
-    Public sirka As Double
-    Public vyska As Double
-    Public vypln As String
-    Public vyskaProfiluHorni As Double
-    Public vyskaProfiluSpodni As Double
-    Public vyskaProfiluFix As Double
-    Public vyskaProfiluPricky As Double
-    Public vyskaProfiluSrazu As Double
-    Public delkaProfiluPricky As Double
-
-    Public plochaProfiluFixu As Double
-    Public plochaProfiluHorni As Double
-    Public plochaProfiluSpodni As Double
-    Public plochaProfiluPricky As Double
-    Public plochaProfiluSrazu As Double
-    Public plochaVyplne As Double
-    Public plochaVyplneSklo As Double
-    Public plochaVyplnePlna As Double
-    Public plochaVyplneFixu As Double
-    Public obvodZaskleni As Double
-    Public linearniCinitelProstupu As Double
-
-    Public prostupProfiluFix As Double
-    Public prostupSkla As Double
-    Public prostupHpl As Double
-    Public prostupAlu48 As Double
-    Public prostupProfiluHorni As Double
-    Public prostupProfiluSpodni As Double
-    Public prostupProfiluSrazu As Double
-    Public prostupProfiluPricky As Double
-    Public prostupVyplneSklo As Double
-    Public prostupVyplnePlna As Double
-
-    Public prostupDveri As Double
-    Public prostupFixB As Double
-    Public prostupFixC As Double
-    Public prostupFixD As Double
+'**************************************************************************************************************************************************
+'V Excelu vloženo do modelu "UpravaZobrazeniZadani"
 
 Sub Reset()
     Worksheets("zadani").Range("C5").Value = "AKTIV 77"
@@ -238,12 +197,11 @@ Sub ZobrazeniZadani()
     Worksheets("zadani").Range("G101:G111").Value = "0"
     Worksheets("zadani").Range("J101:J111").Value = "0"
     Worksheets("zadani").Range("L101:L111").Value = "0"
-    Worksheets("zadani").Range("C101:C125").Value = "0"
+    Worksheets("zadani").Range("C101:C128").Value = "0"
     'Výmaz vypočtených hodnot
     Worksheets("zadani").Range("G5:G32").Value = ""
 
 End Sub
-
 Sub zobrazeniObrazku()
     'nejdřív vše zneviditelnit
     Worksheets("zadani").Shapes("obr-Aktiv").Visible = False
@@ -415,6 +373,9 @@ Sub zobrazeniObrazku()
     End If
 End Sub
 
+'*************************************************************************************************************************************************
+'V Excelu vloženo do modelu "VypocetAktiv"
+
 Sub vypocetDveriAktiv_1()
     'načtení hodnot pro výpočet
     sirka = Worksheets("zadani").Range("sirkaDveri").Value / 1000
@@ -429,16 +390,134 @@ Sub vypocetDveriAktiv_1()
         prostupProfiluSpodni = Worksheets("vypocet").Range("M4").Value
     End If
     prostupProfiluHorni = Worksheets("vypocet").Range("L4").Value
+    
     Select Case Worksheets("zadani").Range("vyplnDveri").Value
         Case "Prosklená"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0
             prostupVyplne = Worksheets("vypocet").Range("G3").Value
             linearniCinitelProstupu = 0.043
         Case "Plná HPL"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0
             prostupVyplne = Worksheets("vypocet").Range("Q5").Value
             linearniCinitelProstupu = 0
         Case "Plná ALU"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0
             prostupVyplne = Worksheets("vypocet").Range("Q6").Value
             linearniCinitelProstupu = 0
+            
+            'výplně s okýnky Creative dle soupisu M.Paláta (mailem 1.12.2021)
+        Case "HPL - Creative 904"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 906"
+            plochaProskleniCreative = 0.076 * 1.401
+            obvodProskleniCreative = 2 * (0.076 + 1.401)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 907"
+            plochaProskleniCreative = 5 * 0.4 * 0.08
+            obvodProskleniCreative = 10 * (0.4 + 0.08)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 908"
+            plochaProskleniCreative = 3 * 0.35 * 0.15
+            obvodProskleniCreative = 6 * (0.35 + 0.15)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 909"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 904"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 906"
+            plochaProskleniCreative = 0.076 * 1.401
+            obvodProskleniCreative = 2 * (0.076 + 1.401)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 907"
+            plochaProskleniCreative = 5 * 0.4 * 0.08
+            obvodProskleniCreative = 10 * (0.4 + 0.08)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 908"
+            plochaProskleniCreative = 3 * 0.35 * 0.15
+            obvodProskleniCreative = 6 * (0.35 + 0.15)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 909"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+
+            'výplně s okýnky Creative řady 3xx dle soupisu M.Paláta (mailem 15.12.2021) - také úkol v Heo
+        Case "HPL - Creative 301"
+            plochaProskleniCreative = 2 * 0.12 * 0.305  
+            obvodProskleniCreative = 2 * 2 * (0.305 + 0.12)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 302"
+            plochaProskleniCreative = 3 * 0.12 * 0.305
+            obvodProskleniCreative = 3 * 2 * (0.305 + 0.12)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 303", "HPL - Creative 306" 
+            plochaProskleniCreative = 4 * 0.17 * 0.17
+            obvodProskleniCreative = 4 * 2 * (0.17 + 0.17)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 304", "HPL - Creative 305", "HPL - Creative 307"
+            plochaProskleniCreative = 4 * 0.22 * 0.12
+            obvodProskleniCreative = 4 * 2 * (0.22 + 0.12)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 308"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 309"
+            plochaProskleniCreative = 4 * 0.22 * 0.22
+            obvodProskleniCreative = 4 * 2 * (0.22 + 0.22)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        
+        Case "ALU - Creative 301"
+            plochaProskleniCreative = 
+            obvodProskleniCreative = 
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+
     End Select
     
     'výpočty
@@ -446,7 +525,7 @@ Sub vypocetDveriAktiv_1()
     plochaProfiluSpodni = vyskaProfiluSpodni * (sirka - (2 * vyskaProfiluHorni))
     plochaVyplne = (sirka * vyska) - plochaProfiluHorni - plochaProfiluSpodni
     obvodZaskleni = 2 * (vyska - vyskaProfiluHorni - vyskaProfiluSpodni + sirka - 2 * vyskaProfiluHorni)
-    prostupDveri = ((plochaProfiluHorni * prostupProfiluHorni) + (plochaProfiluSpodni * prostupProfiluSpodni) + (plochaVyplne * prostupVyplne) + (obvodZaskleni * linearniCinitelProstupu)) / (plochaProfiluHorni + plochaProfiluSpodni + plochaVyplne)
+    prostupDveri = ((plochaProfiluHorni * prostupProfiluHorni) + (plochaProfiluSpodni * prostupProfiluSpodni) + ((plochaVyplne - plochaProskleniCreative) * prostupVyplne) + (plochaProskleniCreative * 1.1) + (obvodZaskleni * linearniCinitelProstupu) + (obvodProskleniCreative * linearniCinitelProstupuProskleniCreative)) / (plochaProfiluHorni + plochaProfiluSpodni + plochaVyplne)
     
     Worksheets("zadani").Range("prostupDveri").Value = prostupDveri
     
@@ -475,7 +554,10 @@ Sub vypocetDveriAktiv_1()
     Worksheets("zadani").Range("C122").Value = obvodZaskleni
     Worksheets("zadani").Range("C123").Value = linearniCinitelProstupu
     Worksheets("zadani").Range("C124").Value = prostupVyplne
-
+    Worksheets("zadani").Range("C126").Value = plochaProskleniCreative
+    Worksheets("zadani").Range("C127").Value = obvodProskleniCreative
+    Worksheets("zadani").Range("C128").Value = linearniCinitelProstupuProskleniCreative
+    
 End Sub
 
 Sub vypocetDveriAktiv_2()
@@ -494,14 +576,85 @@ Sub vypocetDveriAktiv_2()
     End If
     prostupProfiluHorni = Worksheets("vypocet").Range("L4").Value
     prostupProfiluSrazu = Worksheets("vypocet").Range("N4").Value
-    Select Case Worksheets("zadani").Range("vyplnDveri").Value
+   Select Case Worksheets("zadani").Range("vyplnDveri").Value
         Case "Prosklená"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0
             prostupVyplne = Worksheets("vypocet").Range("G3").Value
             linearniCinitelProstupu = 0.043
         Case "Plná HPL"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0
             prostupVyplne = Worksheets("vypocet").Range("Q5").Value
             linearniCinitelProstupu = 0
         Case "Plná ALU"
+            plochaProskleniCreative = 0
+            obvodProskleniCreative = 0
+            linearniCinitelProstupuProskleniCreative = 0
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+            
+            'výplně s okýnky Creative dle soupisu M.Paláta (mailem 1.12.2021)
+        Case "HPL - Creative 904"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 906"
+            plochaProskleniCreative = 0.076 * 1.401
+            obvodProskleniCreative = 2 * (0.076 + 1.401)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 907"
+            plochaProskleniCreative = 5 * 0.4 * 0.08
+            obvodProskleniCreative = 10 * (0.4 + 0.08)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 908"
+            plochaProskleniCreative = 3 * 0.35 * 0.15
+            obvodProskleniCreative = 6 * (0.35 + 0.15)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "HPL - Creative 909", "ALU - Creative 909"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q5").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 904"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 906"
+            plochaProskleniCreative = 0.076 * 1.401
+            obvodProskleniCreative = 2 * (0.076 + 1.401)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 907"
+            plochaProskleniCreative = 5 * 0.4 * 0.08
+            obvodProskleniCreative = 10 * (0.4 + 0.08)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 908"
+            plochaProskleniCreative = 3 * 0.35 * 0.15
+            obvodProskleniCreative = 6 * (0.35 + 0.15)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 909", "ALU - Creative 909"
+            plochaProskleniCreative = 0.22 * 1.52
+            obvodProskleniCreative = 2 * (0.22 + 1.52)
+            linearniCinitelProstupuProskleniCreative = 0.043
             prostupVyplne = Worksheets("vypocet").Range("Q6").Value
             linearniCinitelProstupu = 0
     End Select
@@ -512,7 +665,7 @@ Sub vypocetDveriAktiv_2()
     plochaProfiluSrazu = vyskaProfiluSrazu * vyska
     plochaVyplne = (sirka * vyska) - plochaProfiluHorni - plochaProfiluSpodni - plochaProfiluSrazu
     obvodZaskleni = 2 * (vyska - vyskaProfiluHorni - vyskaProfiluSpodni + sirka - 2 * vyskaProfiluHorni - vyskaProfiluSrazu)
-    prostupDveri = ((plochaProfiluHorni * prostupProfiluHorni) + (plochaProfiluSpodni * prostupProfiluSpodni) + (plochaProfiluSrazu * prostupProfiluSrazu) + (plochaVyplne * prostupVyplne) + (obvodZaskleni * linearniCinitelProstupu)) / (plochaProfiluHorni + plochaProfiluSpodni + plochaProfiluSrazu + plochaVyplne)
+    prostupDveri = ((plochaProfiluHorni * prostupProfiluHorni) + (plochaProfiluSpodni * prostupProfiluSpodni) + (plochaProfiluSrazu * prostupProfiluSrazu) + ((plochaVyplne - plochaProskleniCreative) * prostupVyplne) + (plochaProskleniCreative * 1.1) + (obvodZaskleni * linearniCinitelProstupu) + (obvodProskleniCreative * linearniCinitelProstupuProskleniCreative)) / (plochaProfiluHorni + plochaProfiluSpodni + plochaProfiluSrazu + plochaVyplne)
     
     Worksheets("zadani").Range("prostupDveri").Value = prostupDveri
 
@@ -542,8 +695,14 @@ Sub vypocetDveriAktiv_2()
     Worksheets("zadani").Range("C123").Value = linearniCinitelProstupu
     Worksheets("zadani").Range("C124").Value = prostupVyplne
     Worksheets("zadani").Range("C125").Value = plochaProfiluSrazu
+    Worksheets("zadani").Range("C126").Value = plochaProskleniCreative
+    Worksheets("zadani").Range("C127").Value = obvodProskleniCreative
+    Worksheets("zadani").Range("C128").Value = linearniCinitelProstupuProskleniCreative
 
 End Sub
+
+'*************************************************************************************************************************************************
+'V Excelu vloženo do modelu "VypocetAktivExcellent"
 
 Sub vypocetDveriExcellent()
     'načtení hodnot pro výpočet
@@ -597,6 +756,9 @@ Sub vypocetDveriExcellent()
     Worksheets("zadani").Range("C124").Value = prostupVyplne
     
 End Sub
+
+'*************************************************************************************************************************************************
+'V Excelu vloženo do modelu "VypocetAktivPrickove"
 
 Sub vypocetDveriPrickove()
                     
@@ -813,6 +975,9 @@ Sub vypocetDveriPrickove()
     
 End Sub
 
+'*************************************************************************************************************************************************
+'V Excelu vloženo do modelu "VypocetAktivSvetlik"
+
 Sub vypocetSvetlikuB()
                 
     vyskaProfiluFix = Worksheets("vypocet").Range("I9").Value
@@ -907,7 +1072,6 @@ Sub vypocetSvetlikuC()
     Worksheets("zadani").Range("J111").Value = prostupFixC
     
 End Sub
-
 Sub vypocetSvetlikuD()
     
     'Call nacteniKonstant
@@ -957,6 +1121,8 @@ Sub vypocetSvetlikuD()
     
 End Sub
 
+'*************************************************************************************************************************************************
+'V Excelu vloženo do modelu "VypocetAktivSestavy"
 
 Sub vypocetKompletniSestavy()
     'podle vzorce Uw = (Uf x Af + Ug x Ag + ?g x Ig) / (Af + Ag)
@@ -998,6 +1164,10 @@ Sub vypocetKompletniSestavy()
     linearniCinitelProstupu = Worksheets("zadani").Range("C123").Value
     prostupVyplne = Worksheets("zadani").Range("C124").Value
     plochaProfiluSrazu = Worksheets("zadani").Range("C125").Value
+    plochaProskleniCreative = Worksheets("zadani").Range("C126").Value
+    obvodProskleniCreative = Worksheets("zadani").Range("C127").Value
+    linearniCinitelProstupuProskleniCreative = Worksheets("zadani").Range("C128").Value
+
     'pro světlík B
     prostupVyplneFixuB = Worksheets("zadani").Range("G108").Value
     plochaVyplneFixuB = Worksheets("zadani").Range("G104").Value
@@ -1028,10 +1198,12 @@ Sub vypocetKompletniSestavy()
         plochaProfiluSpodni * prostupProfiluSpodni + _
         plochaProfiluPricky * prostupProfiluPricky + _
         plochaProfiluSrazu * prostupProfiluSrazu + _
-        plochaVyplne * prostupVyplne + _
+        (plochaVyplne - plochaProskleniCreative) * prostupVyplne + _
+        plochaProskleniCreative * 1.1 + _
         plochaVyplneSklo * prostupVyplneSklo + _
         plochaVyplnePlna * prostupVyplnePlna + _
         obvodZaskleni * linearniCinitelProstupu + _
+        obvodProskleniCreative * linearniCinitelProstupuProskleniCreative + _
         plochaProfiluFixuB * prostupProfiluFixuB + _
         plochaVyplneFixuB * prostupVyplneFixuB + _
         obvodZaskleniFixuB * linearniCinitelProstupuFixuB + _
@@ -1062,5 +1234,3 @@ Sub vypocetKompletniSestavy()
     Worksheets("zadani").Range("G5").Value = prostupSestavy
     
 End Sub
-
-
