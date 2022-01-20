@@ -499,8 +499,8 @@ Sub vypocetDveriAktiv_1()
             prostupVyplne = Worksheets("vypocet").Range("Q5").Value
             linearniCinitelProstupu = 0
         Case "HPL - Creative 308"
-            plochaProskleniCreative = 0
-            obvodProskleniCreative = 0
+            plochaProskleniCreative = 0.183088
+            obvodProskleniCreative = 3.526768
             linearniCinitelProstupuProskleniCreative = 0.043
             prostupVyplne = Worksheets("vypocet").Range("Q5").Value
             linearniCinitelProstupu = 0
@@ -512,11 +512,45 @@ Sub vypocetDveriAktiv_1()
             linearniCinitelProstupu = 0
         
         Case "ALU - Creative 301"
-            plochaProskleniCreative = 
-            obvodProskleniCreative = 
+            plochaProskleniCreative = 2 * 0.12 * 0.305  
+            obvodProskleniCreative = 2 * 2 * (0.305 + 0.12)
             linearniCinitelProstupuProskleniCreative = 0.043
             prostupVyplne = Worksheets("vypocet").Range("Q6").Value
             linearniCinitelProstupu = 0
+        Case "ALU - Creative 302"
+            plochaProskleniCreative = 3 * 0.12 * 0.305
+            obvodProskleniCreative = 3 * 2 * (0.305 + 0.12)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 303", "HPL - Creative 306" 
+            plochaProskleniCreative = 4 * 0.17 * 0.17
+            obvodProskleniCreative = 4 * 2 * (0.17 + 0.17)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 304", "HPL - Creative 305", "HPL - Creative 307"
+            plochaProskleniCreative = 4 * 0.22 * 0.12
+            obvodProskleniCreative = 4 * 2 * (0.22 + 0.12)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 308"
+            plochaProskleniCreative = 0.183088
+            obvodProskleniCreative = 3.526768
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+        Case "ALU - Creative 309"
+            plochaProskleniCreative = 4 * 0.22 * 0.22
+            obvodProskleniCreative = 4 * 2 * (0.22 + 0.22)
+            linearniCinitelProstupuProskleniCreative = 0.043
+            prostupVyplne = Worksheets("vypocet").Range("Q6").Value
+            linearniCinitelProstupu = 0
+
+        Case "*****************"
+            i = MsgBox ("Vybraná výplň není relevantní.", 0,"Výplň křídla")
+            Worksheets("zadani").Range("vyplnDveri").Value = "Prosklená"
 
     End Select
     
